@@ -1,5 +1,4 @@
-# demo_wxproject
-微信小程序 -- 入门
+# demo_wxproject  微信小程序
 
 1. 开发环境
 

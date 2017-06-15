@@ -1,0 +1,8 @@
+.swipe{ 
+  width:100%; 
+  height:400rpx;
+}
+.swipe image{ 
+  width:100%; 
+  height:400rpx;
+}

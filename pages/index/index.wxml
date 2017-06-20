@@ -3,7 +3,7 @@
   <view>
     <image src="/images/icon_user.png" class="avater"></image>
     <view class="motto"><text>Hello, 七月</text></view>
-    <view class="journey-container">
+    <view class="journey-container" bindtap="onTap">
       <text class="journey">开启小程序之旅</text>
     </view>
   </view>

@@ -5,19 +5,21 @@
     <swiper-item><image src="/images/vr.png"></image></swiper-item>
     <swiper-item><image src="/images/iqiyi.png"></image></swiper-item>
   </swiper>
-  <view class="post-container">
-    <view class="post-author-date">
-      <image class="post-author" src="{{avatar}}"></image>
-      <text class="post-date">{{date}}</text>
+  <block wx:for="{{postList}}" wx:for-item="item">
+    <view class="post-container">
+      <view class="post-author-date">
+        <image class="post-author" src="{{item.avatar}}"></image>
+        <text class="post-date">{{item.date}}</text>
+      </view>
+      <text class="post-title">{{item.title}}</text>
+      <image class="post-image" src="{{item.headImgSrc}}"></image>
+      <text class="post-content">{{item.content}}</text>
+      <view class="post-like">
+        <image class="post-like-image" src="/images/icon/chat.png"></image>
+        <text class="post-like-font">{{item.collection}}</text>
+        <image class="post-like-image" src="/images/icon/view.png"></image>
+        <text class="post-like-font">{{item.reading}}</text>
+      </view>
     </view>
-    <text class="post-title">{{title}}</text>
-    <image class="post-image" src="{{headImgSrc}}"></image>
-    <text class="post-content">{{content}}</text>
-    <view class="post-like">
-      <image class="post-like-image" src="/images/icon/chat.png"></image>
-      <text class="post-like-font">{{collection}}</text>
-      <image class="post-like-image" src="/images/icon/view.png"></image>
-      <text class="post-like-font">{{reading}}</text>
-    </view>
-  </view>
+  </block>
 </view>

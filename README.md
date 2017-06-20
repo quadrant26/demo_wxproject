@@ -43,3 +43,45 @@
         onPullDownRefresh  下拉刷新
 
         onShareAppMessage   用户转发
+
+    Page.prototype.setData()    
+        setData 函数用于将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值。
+
+4. 视图层
+
+    1. 数据绑定
+
+        基础  {{ content }}
+
+        属性 需要在双引号之内     "item-{{id}}"
+
+        控制属性    wx:if="{{condition}}"
+
+        关键字 checked="{{false}}"
+
+    2. 列表渲染
+
+        wx:for
+
+            <view wx:for="{{array}}" wx:for-index="idx" wx:for-item="itemName">
+                {{idx}}: {{itemName.message}}
+            </view>
+
+            <block wx:for="{{[1, 2, 3]}}">
+                <view> {{index}}: </view>
+                <view> {{item}} </view>
+            </block>
+
+    3. 条件渲染
+
+        wx:if
+
+            <view wx:if="{{condition}}"> True </view>
+
+            <view wx:if="{{length > 5}}"> 1 </view>
+            <view wx:elif="{{length > 2}}"> 2 </view>
+            <view wx:else> 3 </view>
+
+        block wx:if
+
+            <block wx:if="{{true}}">

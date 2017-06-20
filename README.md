@@ -85,3 +85,40 @@
         block wx:if
 
             <block wx:if="{{true}}">
+
+    4. 事件
+
+        bindtap             绑定一个事件处理函数
+
+            <view id="tapTest" data-hi="WeChat" bindtap="tapName"> Click me! </view>
+            Page({
+              tapName: function(event) {
+                console.log(event)
+              }
+            })
+
+        事件绑定
+
+            key 以bind或catch开头，然后跟上事件的类型，如bindtap, catchtouchstart
+            value 是一个字符串，需要在对应的 Page 中定义同名的函数。不然当触发事件的时候会报错。
+
+            bind事件绑定不会阻止冒泡事件向上冒泡，
+            catch事件绑定可以阻止冒泡事件向上冒泡。
+
+5. 路由
+
+    navigateTo, redirectTo 只能打开非 tabBar 页面。
+    switchTab 只能打开 tabBar 页面。
+    reLaunch 可以打开任意页面。
+    页面底部的 tabBar 由页面决定，即只要是定义为 tabBar 的页面，底部都有 tabBar。
+    调用页面路由带的参数可以在目标页面的onLoad中获取。
+
+        打开新页面    wx.navigateTo ||  <navigator open-type="navigateTo"/>
+
+        页面重定向    wx.redirectTo ||  <navigator open-type="redirectTo"/>
+
+        页面返回      wx.navigateBack || <navigator open-type="navigateBack"> || 用户按左上角返回按钮
+
+        Tab 切换      wx.switchTab ||  <navigator open-type="switchTab"/> || 用户切换 Tab
+
+        重启动        wx.reLaunch  ||  <navigator open-type="reLaunch"/>

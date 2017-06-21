@@ -122,3 +122,43 @@
         Tab 切换      wx.switchTab ||  <navigator open-type="switchTab"/> || 用户切换 Tab
 
         重启动        wx.reLaunch  ||  <navigator open-type="reLaunch"/>
+
+6. 导入
+
+    import
+
+        import可以在该文件中使用目标文件定义的template
+
+        css 导入
+
+            @import "css file path"
+
+        模版导入
+
+            <import src="template file path" />
+
+    include
+
+        <!-- index.wxml -->
+        <include src="header.wxml"/>
+        <view> body </view>
+        <include src="footer.wxml"/>
+
+        <!-- header.wxml -->
+        <view> header </view>
+        
+        <!-- footer.wxml -->
+        <view> footer </view>
+
+7. 模版
+
+    声明一个模版
+
+        <template name="templateName">
+            ...
+        </template>
+
+    使用模版
+
+        <import src="template file path" />
+        <template is="templateName" data=""></template>

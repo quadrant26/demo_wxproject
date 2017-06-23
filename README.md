@@ -44,6 +44,8 @@
 
         onShareAppMessage   用户转发
 
+        声明周期函数 接受一个 json 参数 可以获取信息
+
     Page.prototype.setData()    
         setData 函数用于将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值。
 
@@ -97,6 +99,10 @@
               }
             })
 
+            获取 data-hi 数据 在 event 对象中 currentTarget.dataset 中
+
+            event.currentTarget.dataset
+
         事件绑定
 
             key 以bind或catch开头，然后跟上事件的类型，如bindtap, catchtouchstart
@@ -146,7 +152,7 @@
 
         <!-- header.wxml -->
         <view> header </view>
-        
+
         <!-- footer.wxml -->
         <view> footer </view>
 

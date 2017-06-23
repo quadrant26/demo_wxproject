@@ -1,22 +1,20 @@
 var PostData = require("../../data/posts-data.js");
 
 Page({
-  data: {},
-  onLoad: function () {
+    data: {},
+    onLoad: function () {
 
-    this.setData({
-      postList: PostData.postList
-    });
+        this.setData({
+            postList: PostData.postList
+        });
 
-    console.log("页面加载完成");
-  },
-  onReady: function () {
-    console.log("页面渲染完成");
-  },
-  onShow: function () {
+        console.log("页面加载完成");
+    },
+    onPostTap: function (event) {
 
-  },
-  onHide: function () {
-
-  }
+        var postId = event.currentTarget.dataset.postid;
+        wx.navigateTo({
+            url: 'post-detail/post-detail?id=' + postId
+        });
+    }
 })

@@ -7,9 +7,11 @@
     <swiper-item><image src="/images/vr.png"></image></swiper-item>
     <swiper-item><image src="/images/iqiyi.png"></image></swiper-item>
   </swiper>
-  <block wx:for="{{postList}}" wx:for-item="item">
+  <block wx:for="{{postList}}" wx:for-item="item" wx:for-index="idx">
       <!-- template -->
       <!--<template is="postItem" data="{{item}}"></template>-->
-      <template is="postItem2" data="{{...item}}"></template>
-  </block>
+      <view catchtap="onPostTap" data-postId="{{item.postId}}">
+        <template is="postItem2" data="{{...item}}"></template>
+      </view>
+    </block>
 </view>

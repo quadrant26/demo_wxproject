@@ -168,3 +168,74 @@
 
         <import src="template file path" />
         <template is="templateName" data=""></template>
+
+8. storage
+
+    wx.getStorage
+
+        wx.getStorage({
+            key : val,
+            success : function (data){},           // 接口调用的回调函数, success返回参数说明  data	String	key对应的内容
+            fail : function (){},                  // 接口调用失败的回调函数 （可选）
+            complete : function (){},              // 接口调用结束的回调函数（调用成功、失败都会执行） （可选）
+        })
+
+    wx.getStorageSync
+
+        wx.getStorageSync(key)                    // 从本地缓存中同步获取指定 key 对应的内容
+
+    wx.setStorage
+
+        wx.getStorage({
+            key : val,
+            data : Object/String
+            success : function (data){},           // 接口调用成功的回调函数 （可选）
+            fail : cb,                            // 接口调用失败的回调函数 （可选）
+            complete : cb,                        // 接口调用结束的回调函数（调用成功、失败都会执行）（可选）
+        })
+
+    wx.setStorageSync
+
+        wx.setStorageSync(KEY,DATA)                    // 将 data 存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个同步接口。
+
+    wx.getStorageInfo()
+
+        wx.getStorageInfo({
+            success : function (){},
+            fail : function (){},                  // 接口调用失败的回调函数 （可选）
+            complete : function (){},              // 接口调用结束的回调函数（调用成功、失败都会执行） （可选）
+        })
+
+    wx.getStorageInfoSync()
+
+        wx.getStorageInfoSync()                     // 同步获取当前storage的相关信息
+
+    wx.removeStorage
+
+        wx.removeStorage(Object)
+
+    removeStorageSync()
+
+        removeStorageSync(KEY)                      // 从本地缓存中同步移除指定 key
+
+    wx.clearStorage
+
+        wx.clearStorage()                           // 清理本地数据缓存
+
+    wx.clearStorageSync
+
+        wx.clearStorageSync()                       // 同步清理本地数据缓存
+
+9. 交互
+
+    wx.showToast(OBJECT)    // 显示消息提示框
+
+    wx.showLoading(OBJECT)  // 显示 loading 提示框, 需主动调用 wx.hideLoading 才能关闭提示框
+
+    wx.hideToast()          // 隐藏消息提示框
+
+    wx.wx.hideLoading()     // 显示 loading 提示框, 需主动调用 wx.hideLoading 才能关闭提示框
+
+    wx.showModal(OBJECT)    // ​显示模态弹窗
+
+    wx.showActionSheet(OBJECT)      // ​显示操作菜单

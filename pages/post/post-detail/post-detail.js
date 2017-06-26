@@ -15,7 +15,6 @@ Page({
 
         // 获取收藏状态
         var posts_collected = wx.getStorageSync("posts_collected");
-        console.log(posts_collected);
         if (posts_collected ){
             var collected = posts_collected[id];
             this.setData({
@@ -29,19 +28,8 @@ Page({
     },
 
     onCollectionTap : function (event){
-        // var that = this;
-        // wx.getStorage({
-        //     key: 'posts_collected',
-        //     success: function(res) {
-        //         var posts_collected = res.data;
-        //         var post_collected = posts_collected[that.data.currentPostId];
-        //         post_collected = !post_collected;
-
-        //         console.log(post_collected);
-        //     },
-        // })
-
-        this.getPostCollectedSyc();
+        // this.getPostCollectedSyc();
+        this.getPostsCollectedAsy();
     },
 
     getPostCollectedSyc : function (event){
@@ -53,6 +41,26 @@ Page({
         wx.setStorageSync("posts_collected", postsCollected)
         this.setData({
             collected: postCollected
+        })
+    },
+
+    getPostsCollectedAsy : function (event){
+        var that = this;
+        wx.getStorage({
+            key: 'posts_collected',
+            success: function(res) {
+                console.log(res);
+                var postsCollected = res.data;
+                var postCollected = postsCollected[that.data.currentPostId];
+                // 切换收藏状态
+                postCollected = !postCollected;
+                postsCollected[that.data.currentPostId] = postCollected;
+                // 存储数据状态
+                wx.setStorageSync("posts_collected", postsCollected);
+                that.setData({
+                    collected: postCollected
+                })
+            },
         })
     }
 })

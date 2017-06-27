@@ -239,3 +239,15 @@
     wx.showModal(OBJECT)    // ​显示模态弹窗
 
     wx.showActionSheet(OBJECT)      // ​显示操作菜单
+
+
+Queation
+
+    1. 收藏状态
+
+        默认第一次加载是没有 收藏状态需要手动创建一个 Storage, 并存储到 Storage 中
+        页面在加载的时候从 Storage 取得状态， 因为文章列表是多个，所以在 data 里面存储了该文章的 收藏状态。
+        对收藏进行改变时 Storage 里面的数据状态也要改变，同时也要改变 data collected 的数据状态，以便进行数据绑定
+        Storage 返回是一个 Object， 所以每个文章对应的 id 或者是 postid 都不一样，需要根据 id或 postid 获取状态
+
+        Storage 操作的几种方法( 设置，获取， 删除 和 清空 )， 同步和异步操作 

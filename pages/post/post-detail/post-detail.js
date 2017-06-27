@@ -1,5 +1,5 @@
 var PostData = require("../../../data/posts-data.js");
-
+var app = getApp();
 Page({
     data: {
         isPlayingMusic : false
@@ -24,7 +24,63 @@ Page({
             var posts_collected = {};
             posts_collected[id] = false;
             wx.setStorageSync("posts_collected", posts_collected);
-        }
+        };
+
+        // 音乐播放控制
+        if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === id ){
+            this.setData({
+                isPlayingMusic : true
+            });
+        };
+        // 总开关和播放控制
+        this.setMusicMonitor();
+    },
+
+    setMusicMonitor : function (event){
+        var that = this;
+        // 监听音乐播放
+        wx.onBackgroundAudioPlay(function (event){
+            var pages = getCurrentPages();
+            var currentPage = pages[pages.length-1];
+            console.log(pages)
+            console.log(currentPage);
+            
+            if (currentPage.data.currentPostId === that.data.currentPostId ){
+                // 打开多个post-detail页面后，每个页面不会关闭，只会隐藏。通过页面栈拿到到
+                // 当前页面的postid，只处理当前页面的音乐播放。
+                if (app.globalData.g_currentMusicPostId === that.data.currentPostId){
+                    // 播放当前页面音乐才改变图标
+                    that.setData({
+                        isPlayingMusic : true
+                    })
+                };
+            }
+            app.globalData.g_isPlayingMusic = true;
+        });
+
+        // 监听音乐暂停
+        wx.onBackgroundAudioPause(function (event) {
+            var pages = getCurrentPages();
+            var currentPage = pages[pages.length - 1];
+
+            if (currentPage.data.currentPostId === that.data.currentPostId) {
+                if (app.globalData.g_currentMusicPostId === that.data.currentPostId) {
+                    that.setData({
+                        isPlayingMusic: false
+                    })
+                };
+            };
+            app.globalData.g_isPlayingMusic = false;
+        });
+
+        // 监听音乐停止
+        wx.onBackgroundAudioStop(function (event) {
+            that.setData({
+                isPlayingMusic : false
+            });
+            app.globalData.g_isPlayingMusic = false;
+            // app.globalData.g_currentMusicPostId = null;
+        });
     },
 
     onCollectionTap : function (event){
@@ -131,8 +187,12 @@ Page({
     onMusicTap : function (event){
 
         var that = this;
-        // 设置音乐的播放与暂停
+        // 播放与暂停状态
         var isPlayingMusic = that.data.isPlayingMusic;
+        // 每个 item 的音乐设置
+        var id = that.data.currentPostId;
+        var postData = PostData.postList[id];
+
         if (isPlayingMusic ){
             // 暂停播放
             wx.pauseBackgroundAudio();
@@ -142,14 +202,13 @@ Page({
         }else{
             // 播放音乐
             wx.playBackgroundAudio({
-                dataUrl: "http://ws.stream.qqmusic.qq.com/C100003507bR0gDKBm.m4a?fromtag=38",
-                title: "夜夜夜夜-齐秦",
-                coverImgUrl: "http://y.gtimg.cn/music/photo_new/T002R150x150M000001TEc6V0kjpVC.jpg?max_age=2592000"
+                dataUrl: postData.music.url,
+                title: postData.music.title,
+                coverImgUrl: postData.music.coverImg
             });
             that.setData({
                 isPlayingMusic: true
             });
         };
-        
     }
 })

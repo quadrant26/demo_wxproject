@@ -3,7 +3,9 @@ var Utils = require("../../utils/utils.js");
 Page({
 
     data: {
-
+        inTheaters : {},
+        comingSoon : {},
+        top250 : {}
     },
 
     onLoad: function (options) {
@@ -66,9 +68,10 @@ Page({
         readyData[settedKey] = {
             categoryTitle: categoryTitle,
             movies: movies
-        }
+        };
+        this.setData(readyData)
 
-        console.log(readyData[settedKey]);
+        // console.log(readyData[settedKey].categoryTitle);
     }
 
 })

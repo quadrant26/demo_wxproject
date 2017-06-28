@@ -2,7 +2,7 @@
 
 <view class="container">
     <view class="movies-template">
-        <template is="movieListTemplate"></template>
+        <template is="movieListTemplate" data="{{...inTheaters}}"></template>
     </view>
 
     <view class="movies-template">

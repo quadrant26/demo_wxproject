@@ -5,7 +5,7 @@
     <view class="movie-list-container">
         <view class="inner-container">
             <view class="movie-header">
-                <text class="slogan">title</text>
+                <text class="slogan">{{categoryTitle}}</text>
                 <view class="more">
                     <text class="more-text">更多</text>
                     <image class="more-image" src="/images/icon/arrow-right.png"></image>
@@ -14,6 +14,9 @@
 
             <!-- end: movie-header -->
             <view class="movies-container">
+                <!--<block wx:for="{{movies}}" wx:for-item="{{movie}}">
+                    <template is="movieTemplate" data="{{...movie}}"></template>
+                </block>   -->
                 <template is="movieTemplate"></template>
                 <template is="movieTemplate"></template>
                 <template is="movieTemplate"></template>

@@ -42,9 +42,7 @@ Page({
         wx.onBackgroundAudioPlay(function (event){
             var pages = getCurrentPages();
             var currentPage = pages[pages.length-1];
-            console.log(pages)
-            console.log(currentPage);
-            
+
             if (currentPage.data.currentPostId === that.data.currentPostId ){
                 // 打开多个post-detail页面后，每个页面不会关闭，只会隐藏。通过页面栈拿到到
                 // 当前页面的postid，只处理当前页面的音乐播放。

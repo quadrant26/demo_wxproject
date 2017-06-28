@@ -2,16 +2,22 @@
 <!--<import src="post-item/post-item-template.wxml" />-->
 <import src="/pages/post/post-item/post-item-template.wxml" />
 <view class="container">
-  <swiper class="swipe" indicator-dots="true" indicator-color="#fff" indicator-active-color="#ff0">
-    <swiper-item><image src="/images/wx.png"></image></swiper-item>
-    <swiper-item><image src="/images/vr.png"></image></swiper-item>
-    <swiper-item><image src="/images/iqiyi.png"></image></swiper-item>
+  <swiper catchtap="onSwiperTap" class="swipe" indicator-dots="true" indicator-color="#fff" indicator-active-color="#ff0">
+    <swiper-item>
+      <image src="/images/wx.png" data-postId="3"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/vr.png" data-postId="4"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/iqiyi.png" data-postId="5"></image>
+    </swiper-item>
   </swiper>
   <block wx:for="{{postList}}" wx:for-item="item" wx:for-index="idx">
-      <!-- template -->
-      <!--<template is="postItem" data="{{item}}"></template>-->
-      <view catchtap="onPostTap" data-postId="{{item.postId}}">
-        <template is="postItem2" data="{{...item}}"></template>
-      </view>
-    </block>
+    <!-- template -->
+    <!--<template is="postItem" data="{{item}}"></template>-->
+    <view catchtap="onPostTap" data-postId="{{item.postId}}">
+      <template is="postItem2" data="{{...item}}"></template>
+    </view>
+  </block>
 </view>

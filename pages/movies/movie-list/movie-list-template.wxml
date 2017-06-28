@@ -1,0 +1,23 @@
+<!-- 导入 一个单独的电影类别分类 -->
+<import src="../movie/movie-template.wxml" />
+
+<template name="movieListTemplate">
+    <view class="movie-list-container">
+        <view class="inner-container">
+            <view class="movie-header">
+                <text class="slogan">title</text>
+                <view class="more">
+                    <text class="more-text">更多</text>
+                    <image class="more-image" src="/images/icon/arrow-right.png"></image>
+                </view>
+            </view>
+
+            <!-- end: movie-header -->
+            <view class="movies-container">
+                <template is="movieTemplate"></template>
+                <template is="movieTemplate"></template>
+                <template is="movieTemplate"></template>
+            </view>
+        </view>
+    </view>
+</template>

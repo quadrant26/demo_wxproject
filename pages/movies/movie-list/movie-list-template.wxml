@@ -5,7 +5,7 @@
     <view class="movie-list-container">
         <view class="inner-container">
             <view class="movie-header">
-                <text class="slogan">{{categoryTitle}}</text>
+                <text class="slogan">正在热映{{categoryTitle}}</text>
                 <view class="more">
                     <text class="more-text">更多</text>
                     <image class="more-image" src="/images/icon/arrow-right.png"></image>

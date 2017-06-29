@@ -3,8 +3,8 @@
 <!-- 单独的电影模版 -->
 <template name="movieTemplate">
     <view class="movie-container" data-movieId="{{movieId}}">
-        <image src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2462475058.webp" class="movie-img"></image>
-        <text class="movie-title">大鱼海棠</text>
+        <image src="{{coverageUrl}}" class="movie-img"></image>
+        <text class="movie-title">{{title}}</text>
         <template is="starstemplate" data="{{stars : stars, score : average}}"></template>
     </view>
 </template>

@@ -6,10 +6,10 @@
     </view>
 
     <view class="movies-template">
-        <template is="movieListTemplate"></template>
+        <template is="movieListTemplate" data="{{...comingSoon}}"></template>
     </view>
 
     <view class="movies-template">
-        <template is="movieListTemplate"></template>
+        <template is="movieListTemplate" data="{{...top250}}"></template>
     </view>
 </view>

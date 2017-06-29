@@ -17,6 +17,7 @@
   margin-top:100rpx; 
   font-size:32rpx; 
   font-weight:bold;
+  text-align:center;
 }
 /* 按钮 */
 .journey-container{ 

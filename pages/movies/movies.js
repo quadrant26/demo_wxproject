@@ -20,8 +20,8 @@ Page({
 
         // 获取各类数据
         this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映");
-        // this.getMovieListData(inTheatersUrl, "comingSoon", "即将上映");
-        // this.getMovieListData(inTheatersUrl, "top250", "Top250");
+        this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
+        this.getMovieListData(top250Url, "top250", "Top250");
     },
 
     getMovieListData: function (url, settedKey, categoryTitle){
@@ -71,6 +71,7 @@ Page({
         };
         this.setData(readyData)
 
+        console.log(readyData);
         // console.log(readyData[settedKey].categoryTitle);
     }
 

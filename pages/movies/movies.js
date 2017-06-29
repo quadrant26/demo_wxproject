@@ -1,5 +1,5 @@
 var Utils = require("../../utils/utils.js");
-
+var app = getApp();
 Page({
 
     data: {
@@ -9,7 +9,7 @@ Page({
     },
 
     onLoad: function (options) {
-        var database = "https://api.douban.com";
+        var database = app.globalData.dataBase;
 
         // 正在热映
         var inTheatersUrl = database + "/v2/movie/in_theaters" + "?start=0&count=3";
@@ -18,29 +18,63 @@ Page({
         // Top250
         var top250Url = database + "/v2/movie/top250" + "?start=0&count=3";
 
+        // 根据时间戳来获取数据 防止 key 锁定
+        var nowTime = Date.now();
+        var oldTime = wx.getStorageSync("oldtime");
+        
+        // 获取新数据的条件是
+        // 缓存中的 时间戳不存在
+        // 或者 现在的时间和缓存中的时间间隔为 30s 以上
+        if (!oldTime || (oldTime && (nowTime - oldTime) >= 30000) ){
+            
+            this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映"); 
+            this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
+            this.getMovieListData(top250Url, "top250", "Top250");
+            
+            // 将最新的时间戳保存起来
+            wx.setStorageSync("oldtime", nowTime);
+        }else{
+            // 不请求新数据, 直接从缓存中进行读取数据的操作
+            var inTheaters_data = wx.getStorageSync("inTheaters");
+            var comingSoon_data = wx.getStorageSync("comingSoon");
+            var top250_data = wx.getStorageSync("top250");
+
+            this.processDoubanData(inTheaters_data, "inTheaters", "正在热映");
+            this.processDoubanData(comingSoon_data, "comingSoon", "即将上映");
+            this.processDoubanData(top250_data, "top250", "Top250");
+        };
         // 获取各类数据
-        this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映");
-        this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
-        this.getMovieListData(top250Url, "top250", "Top250");
+        //this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映");
+        //this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
+        //this.getMovieListData(top250Url, "top250", "Top250");
+    },
+
+    onMoreTap : function (event){
+        var category = event.currentTarget.dataset.category;
+        wx.navigateTo({
+            url: 'more-movie/more-movie?category=' + category
+        });
     },
 
     getMovieListData: function (url, settedKey, categoryTitle){
         var that = this;
 
         wx.request({
-            url : url,
+            url: url,
             methd: "GET", // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-            header : {
-                "Content-Type" : "json"
+            header: {
+                "Content-Type": "json"
             },
-            success : function (res){
+            success: function (res) {
                 that.processDoubanData(res.data, settedKey, categoryTitle);
+                wx.setStorageSync(settedKey, res.data);
             },
             fail: function (error) {
                 // fail
                 console.log(error)
             }
         });
+
     },
 
     processDoubanData: function (moviedata, settedKey, categoryTitle){
@@ -69,10 +103,8 @@ Page({
             categoryTitle: categoryTitle,
             movies: movies
         };
-        this.setData(readyData)
+        this.setData(readyData);
 
-        console.log(readyData);
-        // console.log(readyData[settedKey].categoryTitle);
     }
 
 })

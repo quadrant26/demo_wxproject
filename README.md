@@ -262,9 +262,25 @@ Queation
 
     4. 底部导航
 
+        tabBar : {
+            "position" : "bottom",
+            "list" : [ // 长度必须为2个以上
+                {
+                    "pagePath" : "跳转url",
+                    "text":"标题",
+                    "iconPath" : "默认状态图片",
+                    "selectedIconPath" : "被选中状态图片"
+                }
+            ]
+        }
+
     5. 豆瓣API的间隔时长设置
 
         由于豆瓣 API 获取次数是每分钟40次，超过此次数将无法获取数据，所以设置电影首页的数据时，将获取时长设置为 30s 以上
         利用缓存存储数据和时间戳
 
     6. 电影更多的操作时下拉刷新和上拉加载内容时数据更新
+
+        scroll-view bindscrolltolower="onScrollLower"
+
+        view    onReachBottom

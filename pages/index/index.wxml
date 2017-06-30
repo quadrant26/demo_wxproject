@@ -1,8 +1,9 @@
 <!--pages/index/index.wxml-->
 <view class="container">
   <view>
-    <image src="/images/icon_user.png" class="avater"></image>
-    <view class="motto"><text>Hello, 七月</text></view>
+    <!--<image src="/images/icon_user.png" class="avater"></image>-->
+    <image src="{{avatarUrl}}" class="avater"></image>
+    <view class="motto"><text>Hello, {{nickName}}</text></view>
     <view class="journey-container" bindtap="onTap">
       <text class="journey">开启小程序之旅</text>
     </view>

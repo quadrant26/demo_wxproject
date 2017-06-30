@@ -8,7 +8,8 @@ Page({
         top250 : {},
         searchPanelShow : false,
         containerShow : true,
-        searchResult : {}
+        searchResult : {},
+        value : ""
     },
 
     onLoad: function (options) {
@@ -66,7 +67,8 @@ Page({
         this.setData({
             containerShow: true,
             searchPanelShow: false,
-            searchResult : {}
+            searchResult : {},
+            value : ""
         })
     },
 
@@ -81,6 +83,7 @@ Page({
     onBindBlur : function (event){
         // 输入框失去焦点事件
         var value = event.detail.value;
+        this.data.value = value;
         if( value !== "" ){
             var dataUrl = app.globalData.dataBase + "/v2/movie/search?q=" + value;
             this.getMovieListData(dataUrl, "searchResult", "");
@@ -89,10 +92,18 @@ Page({
             this.setData({
                 containerShow: true,
                 searchPanelShow: false,
-                searchResult: {}
+                searchResult: {},
+                value : ""
             })
         };
-        
+    },
+
+    onMovieDetailTap : function (event){
+        // 点击查看电影详情
+        var movieId = event.currentTarget.dataset.movieid;
+        wx.navigateTo({
+            url: 'movie-detail/movie-detail?movieid=' + movieId,
+        });
     },
 
     getMovieListData: function (url, settedKey, categoryTitle){

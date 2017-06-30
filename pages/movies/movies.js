@@ -5,7 +5,10 @@ Page({
     data: {
         inTheaters : {},
         comingSoon : {},
-        top250 : {}
+        top250 : {},
+        searchPanelShow : false,
+        containerShow : true,
+        searchResult : {}
     },
 
     onLoad: function (options) {
@@ -30,7 +33,7 @@ Page({
             this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映"); 
             this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
             this.getMovieListData(top250Url, "top250", "Top250");
-            
+            wx.showNavigationBarLoading();
             // 将最新的时间戳保存起来
             wx.setStorageSync("oldtime", nowTime);
         }else{
@@ -39,6 +42,7 @@ Page({
             var comingSoon_data = wx.getStorageSync("comingSoon");
             var top250_data = wx.getStorageSync("top250");
 
+            wx.showNavigationBarLoading();
             this.processDoubanData(inTheaters_data, "inTheaters", "正在热映");
             this.processDoubanData(comingSoon_data, "comingSoon", "即将上映");
             this.processDoubanData(top250_data, "top250", "Top250");
@@ -50,10 +54,45 @@ Page({
     },
 
     onMoreTap : function (event){
+        // 查看更多
         var category = event.currentTarget.dataset.category;
         wx.navigateTo({
             url: 'more-movie/more-movie?category=' + category
         });
+    },
+
+    onCanelImgTap : function (event){
+        // 点击清空搜索框的内容
+        this.setData({
+            containerShow: true,
+            searchPanelShow: false,
+            searchResult : {}
+        })
+    },
+
+    onBindFocus : function (event){
+        // 输入框得到焦点事件
+        this.setData({
+            containerShow : false,
+            searchPanelShow : true
+        })
+    },
+
+    onBindBlur : function (event){
+        // 输入框失去焦点事件
+        var value = event.detail.value;
+        if( value !== "" ){
+            var dataUrl = app.globalData.dataBase + "/v2/movie/search?q=" + value;
+            this.getMovieListData(dataUrl, "searchResult", "");
+            wx.showNavigationBarLoading();
+        }else{
+            this.setData({
+                containerShow: true,
+                searchPanelShow: false,
+                searchResult: {}
+            })
+        };
+        
     },
 
     getMovieListData: function (url, settedKey, categoryTitle){
@@ -104,7 +143,7 @@ Page({
             movies: movies
         };
         this.setData(readyData);
-
+        wx.hideNavigationBarLoading();
     }
 
 })

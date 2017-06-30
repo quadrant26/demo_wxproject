@@ -2,7 +2,7 @@
 <import src="../stars/stars-template.wxml" />  
 <!-- 单独的电影模版 -->
 <template name="movieTemplate">
-    <view class="movie-container" data-movieId="{{movieId}}">
+    <view class="movie-container" data-movieId="{{movieId}}" data-movieTitle="{{title}}" catchtap="onMovieDetailTap">
         <image src="{{coverageUrl}}" class="movie-img"></image>
         <text class="movie-title">{{title}}</text>
         <template is="starstemplate" data="{{stars : stars, score : average}}"></template>

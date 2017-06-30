@@ -76,6 +76,13 @@ Page({
         wx.showNavigationBarLoading();
     },
 
+    onMovieDetailTap : function (event){
+        var movieId = event.currentTarget.dataset.movieid;
+        wx.navigateTo({
+            url: '../movie-detail/movie-detail?movieid=' + movieId,
+        });
+    },
+
     processDoubanData: function (moviedata) {
         
         wx.setStorageSync("moredata", moviedata);

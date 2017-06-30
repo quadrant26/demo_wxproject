@@ -2,8 +2,6 @@
 var Utils = require("../../../utils/utils.js");
 var app = getApp();
 
-console.log(Utils);
-
 Page({
 
     data: {
@@ -51,6 +49,33 @@ Page({
         };
     },
 
+    onPullDownRefresh : function (event){
+        // 下拉刷新页面
+        // 属性进行恢复到默认
+        var dataUrl = this.data.requestUrl + "?start=0&count=20";
+        this.data.movies = {};
+        this.data.totalCount = 0;
+        this.data.isEmpty = true;
+        Utils.http(dataUrl, this.processDoubanData);
+        wx.showNavigationBarLoading();
+    },
+
+    onScrollLower : function (event){
+        // 上拉加载更多内容
+        var dataUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
+        Utils.http(dataUrl, this.processDoubanData);
+        // 在导航条显示加载动画
+        wx.showNavigationBarLoading();
+    },
+
+    onReachBottom : function (event){
+        // 页面滑动到底部触发加载更多内容
+        var dataUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
+        Utils.http(dataUrl, this.processDoubanData);
+        // 在导航条显示加载动画
+        wx.showNavigationBarLoading();
+    },
+
     processDoubanData: function (moviedata) {
         
         wx.setStorageSync("moredata", moviedata);
@@ -71,12 +96,27 @@ Page({
             };
             movies.push(temp);
         };
+        // 设置加载更多时 数据动态
+        var totalMovies = {};
 
+        if (!this.data.isEmpty ){
+            // 加载更多时数组连接
+            totalMovies = this.data.movies.concat(movies);
+        }else{
+            totalMovies = movies;
+            this.data.isEmpty = false;
+        };
+
+
+        this.data.totalCount += 20;
         this.setData({
-            movies: movies
+            movies: totalMovies
         });
 
-        console.log(movies);
+        // 在导航条关闭加载动画
+        wx.hideNavigationBarLoading();
+        // 停止下拉刷新
+        wx.stopPullDownRefresh();
     }
 
 })
